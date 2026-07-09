@@ -1,127 +1,168 @@
 import streamlit as st
+import time
 
-st.set_page_config(page_title="Presentación Nicalapia", page_icon="🐟", layout="wide")
+# Configuración de la página
+st.set_page_config(page_title="Nicalapia Pitch", page_icon="🐟", layout="wide")
 
+# ==========================================
+# ESTILOS CSS (Animaciones y Diseño)
+# ==========================================
 st.markdown("""
 <style>
-    /* Estilos generales */
-    .slide-container { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 40px; }
-    .main-title { color: #124491; font-size: 48px; font-weight: 900; text-align: center; margin-bottom: 5px; text-transform: uppercase;}
-    .sub-title { color: #008080; font-size: 24px; text-align: center; font-style: italic; margin-bottom: 30px;}
-    .section-title { color: #124491; font-size: 32px; font-weight: bold; border-bottom: 3px solid #008080; padding-bottom: 10px; margin-bottom: 20px;}
-    .highlight-text { font-size: 18px; line-height: 1.6; color: #333;}
-    .feature-box { background-color: #f8f9fa; padding: 20px; border-left: 5px solid #124491; border-radius: 5px; margin-bottom: 15px;}
-    hr { margin: 40px 0; border: none; border-top: 2px dashed #ccc; }
+    .main-header { font-size: 50px; font-weight: 900; color: #124491; text-transform: uppercase; margin-bottom: 0px;}
+    .sub-header { font-size: 25px; color: #008080; font-style: italic; margin-bottom: 20px;}
+    .card { background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.3s;}
+    .card:hover { transform: scale(1.02); }
+    .highlight { color: #124491; font-weight: bold; }
+    div[data-testid="stSidebar"] { background-color: #f0f4f8; }
 </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# DIAPOSITIVA 1: PORTADA
+# MENÚ DE NAVEGACIÓN LATERAL
 # ==========================================
-st.markdown('<div class="slide-container">', unsafe_allow_html=True)
-st.markdown('<div class="main-title">🐟 NICALAPIA S.A.</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Transformación Digital en la Industria Pesquera</div>', unsafe_allow_html=True)
+st.sidebar.image("https://cdn-icons-png.flaticon.com/512/3063/3063822.png", width=100) # Logo genérico pescado
+st.sidebar.title("Presentación Nicalapia")
+diapositiva = st.sidebar.radio("Navegación:", [
+    "1. Inicio y Visión", 
+    "2. El Problema vs La Solución", 
+    "3. Demostración de Módulos", 
+    "4. Calidad y Normativa BRCGS", 
+    "5. Roadmap y Futuro"
+])
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Procesos Digitalizados", "100%", "+ Eficiencia")
-col2.metric("Reducción de Errores", "99.9%", "Cálculo Automático")
-col3.metric("Tiempo de Auditoría", "-60%", "Trazabilidad Inmediata")
-
-st.markdown("<br><p style='text-align: center; font-size: 18px;'>Presentación de la Web App Integral para Control de Calidad y Trazabilidad (FT-HACCP-005 y FT-PROD-03)</p>", unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+st.sidebar.markdown("---")
+st.sidebar.info("💡 **Tip de presentación:** Cambia de sección usando este menú para mantener la atención del público.")
 
 # ==========================================
-# DIAPOSITIVA 2: EL PROBLEMA VS LA SOLUCIÓN
+# SLIDE 1: INICIO Y VISIÓN
 # ==========================================
-st.markdown('<div class="slide-container">', unsafe_allow_html=True)
-st.markdown('<div class="section-title">El Cambio Necesario en Planta</div>', unsafe_allow_html=True)
+if diapositiva == "1. Inicio y Visión":
+    col1, col2 = st.columns([1.2, 1])
+    
+    with col1:
+        st.markdown('<div class="main-header">🐟 NICALAPIA S.A.</div>', unsafe_allow_html=True)
+        st.markdown('<div class="sub-header">Transformación Digital en la Industria Pesquera</div>', unsafe_allow_html=True)
+        st.write("Bienvenido al futuro del procesamiento de mariscos y tilapia. Nuestra nueva Web App centraliza, agiliza y asegura todos los registros de calidad en planta, eliminando el papel y potenciando la eficiencia.")
+        
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Procesos Digitalizados", "100%", "+ Eficiencia")
+        c2.metric("Reducción de Errores", "99.9%", "Matemática Exacta")
+        c3.metric("Tiempo de Auditoría", "-60%", "Búsqueda Rápida")
+        
+        if st.button("🚀 Iniciar Presentación"):
+            st.balloons()
+            st.success("¡Listos para transformar Nicalapia!")
 
-c1, c2 = st.columns(2)
-with c1:
-    st.error("❌ El Desafío del Papel")
+    with col2:
+        # Imagen de industria pesquera/tecnología
+        st.image("https://images.unsplash.com/photo-1524704796725-9fc3044a58b2?auto=format&fit=crop&w=800&q=80", caption="Innovación en cada proceso", use_container_width=True)
+
+# ==========================================
+# SLIDE 2: EL PROBLEMA VS LA SOLUCIÓN
+# ==========================================
+elif diapositiva == "2. El Problema vs La Solución":
+    st.title("El Cambio Necesario en Planta 🏭")
+    st.write("¿Por qué necesitamos migrar del papel a lo digital? Veamos la comparativa:")
+    
+    col_prob, col_sol = st.columns(2)
+    
+    with col_prob:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.error("❌ El Desafío del Formato Físico")
+        st.image("https://images.unsplash.com/photo-1607499699313-2df8d1c9ac6e?auto=format&fit=crop&w=600&q=80", caption="Registros en papel en áreas húmedas = Riesgo", use_container_width=True)
+        st.write("- **Manchas y Daños:** Áreas húmedas destruyen registros físicos.")
+        st.write("- **Errores Humanos:** Fallos en calculadoras al sumar libras.")
+        st.write("- **Lentitud:** Búsqueda en bodegas para auditorías de trazabilidad.")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+    with col_sol:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.success("✅ La Solución Digital (Web App)")
+        st.image("https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80", caption="Control digital en tiempo real", use_container_width=True)
+        st.write("- **Tablets en Planta:** Captura de datos in situ y segura.")
+        st.write("- **Cálculos Automáticos:** Rendimientos y mermas al instante.")
+        st.write("- **Información Centralizada:** Base de datos accesible a un clic.")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+# ==========================================
+# SLIDE 3: DEMOSTRACIÓN DE MÓDULOS
+# ==========================================
+elif diapositiva == "3. Demostración de Módulos":
+    st.title("Arquitectura de la Aplicación ⚙️")
+    st.write("Explora cómo operan los módulos principales a través de estas pestañas:")
+    
+    tab1, tab2, tab3 = st.tabs(["📊 1. Recepción (FT-HACCP-005)", "🔍 2. Trazabilidad (FT-PROD-03)", "🖨️ 3. Reportes Oficiales"])
+    
+    with tab1:
+        c1, c2 = st.columns([2, 1])
+        with c1:
+            st.subheader("Clasificación y Recepción")
+            st.write("Captura de evaluación sensorial (olor, color, textura), temperatura de termos, y lotes en una matriz dinámica de pesaje.")
+            with st.expander("Ver fragmento de código (Backend)"):
+                st.code('pesos = [pw[i].number_input(f"P{i+1}") for i in range(8)]', language='python')
+        with c2:
+            st.image("https://images.unsplash.com/photo-1519623286359-e9f3cbef015b?auto=format&fit=crop&w=400&q=80", caption="Recepción de MP")
+            
+    with tab2:
+        c1, c2 = st.columns([2, 1])
+        with c1:
+            st.subheader("Seguimiento de Producto")
+            st.write("Vincula el producto desde la bodega hasta el empaque. Calcula el % de rendimiento real de fileteo automáticamente.")
+            with st.expander("Fórmula Automática"):
+                st.code('rend_real = (peso_final / peso_inicial) * 100', language='python')
+        with c2:
+            st.image("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80", caption="Control de Procesos")
+
+    with tab3:
+        st.subheader("Listos para Imprimir")
+        st.info("La aplicación genera plantillas HTML/PDF idénticas a los formatos oficiales de Nicalapia, con bloqueos anti-falsificación (filas en blanco auto-rellenadas).")
+        st.image("https://images.unsplash.com/photo-1612222869049-d8ec83637a3c?auto=format&fit=crop&w=800&q=80", caption="Documentación digital inmutable", use_container_width=True)
+
+# ==========================================
+# SLIDE 4: CALIDAD Y BRCGS
+# ==========================================
+elif diapositiva == "4. Calidad y Normativa BRCGS":
+    st.title("🏆 El Aliado Ideal para la Certificación")
+    st.write("Interactúa con los botones para descubrir cómo la app resuelve los puntos críticos de auditoría (BRCGS/HACCP):")
+    
+    col1, col2 = st.columns([1, 1.5])
+    
+    with col1:
+        st.image("https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=600&q=80", caption="Laboratorio / Aseguramiento de Calidad", use_container_width=True)
+    
+    with col2:
+        if st.checkbox("🔍 Cláusula 3.9 (Trazabilidad)"):
+            st.success("Permite rastrear el camino de un lote específico (del proveedor a la caja final) en minutos, cumpliendo el límite de tiempo exigido por la norma.")
+            
+        if st.checkbox("📝 Cláusula 3.2 (Control de Registros)"):
+            st.success("Elimina tachaduras, uso de correctores y garantiza registros legibles. Los formatos se imprimen con su código oficial (Ej: FT-PROD-03).")
+            
+        if st.checkbox("🌡️ Sección 2 (HACCP) - Límites Críticos"):
+            st.success("Obliga al registro de temperatura y análisis sensorial. La estandarización evita que ingresen productos fuera de la norma (Ej: < 4°C).")
+
+# ==========================================
+# SLIDE 5: ROADMAP Y FUTURO
+# ==========================================
+elif diapositiva == "5. Roadmap y Futuro":
+    st.title("🚀 Evolución: El Camino a Seguir")
+    
+    if st.button("Mostrar Avance de Proyecto"):
+        progress_bar = st.progress(0)
+        for percent_complete in range(100):
+            time.sleep(0.01)
+            progress_bar.progress(percent_complete + 1)
+        st.success("¡Fase 1 Completada con Éxito!")
+
     st.markdown("""
-    <div class="highlight-text">
-    <ul>
-        <li><b>Manchas y Daños:</b> Áreas húmedas destruyen registros físicos.</li>
-        <li><b>Errores Humanos:</b> Fallos al sumar libras en 8 pesajes continuos.</li>
-        <li><b>Lentitud:</b> Horas buscando lotes anteriores para auditorías.</li>
-    </ul>
+    <div style="margin-top: 30px;">
+        <h3 class="highlight">🟢 Fase 1 (Actual)</h3>
+        <p>Digitalización de captura en planta: Formatos de Recepción (MP) y Trazabilidad (Proceso).</p>
+        <hr>
+        <h3 class="highlight">🟡 Fase 2 (Siguiente paso)</h3>
+        <p>Almacenamiento en la Nube (Base de datos SQL) y nuevos módulos (Despacho y Control de Agua).</p>
+        <hr>
+        <h3 class="highlight">🔴 Fase 3 (Visión a largo plazo)</h3>
+        <p><i>Business Intelligence:</i> Dashboards gerenciales con gráficas en vivo sobre productividad por operario, mermas semanales y calidad de proveedores.</p>
     </div>
     """, unsafe_allow_html=True)
-
-with c2:
-    st.success("✅ La Solución: Nicalapia App")
-    st.markdown("""
-    <div class="highlight-text">
-    <ul>
-        <li><b>Tablets en Planta:</b> Captura de datos en tiempo real.</li>
-        <li><b>Cálculos Matemáticos Cero Fricción:</b> Rendimientos y totales automáticos.</li>
-        <li><b>Información unificada:</b> Proveedores, granjas y calidad en un solo clic.</li>
-    </ul>
-    </div>
-    """, unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
-
-# ==========================================
-# DIAPOSITIVA 3: CARACTERÍSTICAS DE LA APP
-# ==========================================
-st.markdown('<div class="slide-container">', unsafe_allow_html=True)
-st.markdown('<div class="section-title">¿Qué hace nuestra App?</div>', unsafe_allow_html=True)
-
-col_a, col_b = st.columns(2)
-with col_a:
-    st.markdown('<div class="feature-box"><b>⚖️ Módulo de Recepción (FT-HACCP-005)</b><br>Captura de evaluación sensorial (olor, color, textura), temperatura de termos, y lotes en una matriz dinámica de pesaje. Genera PDF oficial estandarizado.</div>', unsafe_allow_html=True)
-    with st.expander("Ver fragmento de código de Recepción"):
-        st.code("""
-        # Matriz dinámica para ingreso rápido de libras
-        pw = st.columns(8)
-        pesos = [pw[i].number_input(f"P{i+1}") for i in range(8)]
-        """, language="python")
-
-with col_b:
-    st.markdown('<div class="feature-box"><b>🔍 Módulo de Trazabilidad (FT-PROD-03)</b><br>Vincula el producto desde la bodega hasta el proceso de fileteo/empaque. Calcula el % de rendimiento real automáticamente por lote procesado.</div>', unsafe_allow_html=True)
-    with st.expander("Ver fragmento de código de Trazabilidad"):
-        st.code("""
-        # El sistema calcula el rendimiento sin intervención humana
-        rend_real = (p_final / p_inicial * 100) if p_inicial > 0 else 0.0
-        """, language="python")
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-# ==========================================
-# DIAPOSITIVA 4: CERTIFICACIÓN BRCGS Y VENTAJAS
-# ==========================================
-st.markdown('<div class="slide-container">', unsafe_allow_html=True)
-st.markdown('<div class="section-title">El Camino hacia la Certificación (BRCGS)</div>', unsafe_allow_html=True)
-
-st.info("Implementar esta herramienta no es solo modernizar; es cumplir con estándares globales de inocuidad alimentaria.")
-
-c3, c4, c5 = st.columns(3)
-with c3:
-    st.markdown("### 🏷️ Trazabilidad Total")
-    st.markdown("**(Cláusula 3.9 BRCGS)**<br>Permite rastrear el camino de un lote específico desde la granja hasta el cliente final en minutos.", unsafe_allow_html=True)
-
-with c4:
-    st.markdown("### 📝 Control de Registros")
-    st.markdown("**(Cláusula 3.2 BRCGS)**<br>Elimina tachaduras y enmendaduras. Formularios inmutables con control de versiones (Versión Mayo 2026).", unsafe_allow_html=True)
-
-with c5:
-    st.markdown("### 🌡️ Límites Críticos")
-    st.markdown("**(Sección 2 HACCP)**<br>Supervisa obligatoriamente la regla de Temperatura ≤ 4°C y rechaza productos que no cumplen análisis sensorial.", unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-# ==========================================
-# DIAPOSITIVA 5: EL FUTURO
-# ==========================================
-st.markdown('<div class="slide-container" style="background-color: #124491; color: white;">', unsafe_allow_html=True)
-st.markdown('<h2 style="color: white; text-align: center;">🚀 Evolución y Siguientes Pasos</h2>', unsafe_allow_html=True)
-
-st.markdown("""
-<div style="font-size: 20px; line-height: 1.8; text-align: center; margin-top: 20px;">
-    <b>Fase 1 (Completada):</b> Digitalización de Formatos en Planta.<br>
-    <b>Fase 2 (Próximamente):</b> Conexión SQL a la nube para almacenamiento de datos históricos.<br>
-    <b>Fase 3 (Business Intelligence):</b> Dashboards en tiempo real de mermas y calidad para la Gerencia General.
-</div>
-""", unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
